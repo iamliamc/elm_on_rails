@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+http://bendyworks.com/blog/elm-on-rails-5-1-webpacker?utm_source=rubyweekly&utm_medium=email
+
+https://pragmaticstudio.com/blog/2017/5/12/elm-with-rails-5-1
+
+http://package.elm-lang.org/packages/NoRedInk/elm-rails/6.1.0/Rails
