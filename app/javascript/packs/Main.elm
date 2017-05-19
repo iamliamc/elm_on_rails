@@ -76,7 +76,7 @@ type Message
 getMenu : Cmd Message
 getMenu =
     list string
-        |> Rails.get "http://localhost:3000/menu.json"
+        |> Rails.get "//localhost:3000/menu.json"
         |> Http.send HandleGetMenuResponse
 
 
