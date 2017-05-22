@@ -6,14 +6,9 @@ class MenuController < ApplicationController
 
   def show
     begin
-      random = rand(1..10)
-      if random >= 3
-        @food = [["Fries", "Zuchhini", "Pumpkin Pie", "Apples"], ["Tacos", "Bananna Split", "Oranges", "Honeydew"], ["Tuna", "Spinach", "Rice", "Corn"]].sample
-        respond_to do |f|
-          f.json { render json: @food.to_json }
-        end
-      else
-        raise "Random backend error!"
+      @food = [["Fries", "Zuchhini", "Pumpkin Pie", "Apples"], ["Tacos", "Bananna Split", "Oranges", "Honeydew"], ["Tuna", "Spinach", "Rice", "Corn"]].sample
+      respond_to do |f|
+        f.json { render json: @food.to_json }
       end
     rescue Exception => e
       respond_to do |f|

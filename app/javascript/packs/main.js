@@ -5,7 +5,7 @@ import Elm from './Main'
 
 document.addEventListener('DOMContentLoaded', () => {
   // const target = document.createElement('div')
-  var target = document.getElementById('hello_elm')
+  var target = document.getElementById('main')
 
   document.body.appendChild(target)
   Elm.Main.embed(target)
