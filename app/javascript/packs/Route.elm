@@ -1,52 +1,38 @@
 module Route exposing (..)
 
-import UrlParser as Url exposing (parseHash, s, (</>), string, oneOf, Parser)
+import UrlParser as Url exposing (parseHash, s, (</>), string, oneOf, Parser, map, top)
 import Navigation exposing (Location)
-import Html exposing (Attribute)
-import Html.Attributes as Attr
+
+
+-- import Html exposing (Attribute)
+-- import Html.Attributes as Attr
+
+
+type alias ItemId =
+    String
 
 
 type Route
     = Home
-    | MenuIndex
+    | MenuRoute
+    | ItemRoute ItemId
     | NotFoundRoute
 
 
-route : Parser (Route -> a) a
-route =
+matchers : Parser (Route -> a) a
+matchers =
     oneOf
-        [ Url.map Home (s "")
-        , Url.map MenuIndex (s "menu")
+        [ Url.map Home Url.top
+        , Url.map ItemRoute (s "item" </> string)
+        , Url.map MenuRoute (s "menu")
         ]
 
 
 parseLocation : Location -> Route
 parseLocation location =
-    case (parseHash route location) of
+    case (parseHash matchers location) of
         Just route ->
             route
 
         Nothing ->
             NotFoundRoute
-
-
-href : Route -> Attribute msg
-href route =
-    Attr.href (routeToString route)
-
-
-routeToString : Route -> String
-routeToString page =
-    let
-        pieces =
-            case page of
-                Home ->
-                    []
-
-                MenuIndex ->
-                    [ "menu" ]
-
-                NotFoundRoute ->
-                    [ "404" ]
-    in
-        "#/" ++ (String.join "/" pieces)

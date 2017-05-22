@@ -2,9 +2,11 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (style, class)
-import Json.Decode exposing (list, string, succeed)
+import Json.Decode as Decode exposing (list, string, succeed)
 import Html.Events exposing (onClick, onInput)
 import Http
+import Navigation exposing (Location)
+import UrlParser as Url exposing (..)
 import Rails
 
 
@@ -12,7 +14,9 @@ import Rails
 
 
 type alias Model =
-    { menu : Menu, error : String }
+    { menu : Menu
+    , error : String
+    }
 
 
 type alias Menu =
@@ -75,7 +79,7 @@ type Message
 
 getMenu : Cmd Message
 getMenu =
-    list string
+    Decode.list Decode.string
         |> Rails.get "//localhost:3000/menu.json"
         |> Http.send HandleGetMenuResponse
 
