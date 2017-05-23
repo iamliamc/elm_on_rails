@@ -6,7 +6,7 @@ class MenuController < ApplicationController
 
   def show
     begin
-      @food = [["Fries", "Zuchhini", "Pumpkin Pie", "Apples"], ["Tacos", "Bananna Split", "Oranges", "Honeydew"], ["Tuna", "Spinach", "Rice", "Corn"]].sample
+      @food = [{id: "1", name: "American"}, {id: "2", name: "Mexican"}, {id: "3", name: "Italian"}, {id: "4", name: "Chinese"}]
       respond_to do |f|
         f.json { render json: @food.to_json }
       end

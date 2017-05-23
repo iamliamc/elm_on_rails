@@ -10,7 +10,7 @@ import Navigation exposing (Location)
 import Menu.Model exposing (Model, initialModel)
 import Menu.View exposing (..)
 import Menu.Msgs exposing (..)
-import Menu.Commands exposing (getMenu)
+import Menu.Commands exposing (getMenus)
 
 
 -- VIEW
@@ -18,7 +18,7 @@ import Menu.Commands exposing (getMenu)
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, getMenu )
+    ( initialModel, getMenus )
 
 
 
@@ -34,10 +34,10 @@ update msg model =
             ( model, Cmd.none )
 
         FetchMenu ->
-            ( model, getMenu )
+            ( model, getMenus )
 
         HandleGetMenuResponse (Ok m) ->
-            ( { model | menu = m }, Cmd.none )
+            ( { model | menus = m }, Cmd.none )
 
         HandleGetMenuResponse (Err err) ->
             ( { model | error = toString err }, Cmd.none )

@@ -4,13 +4,39 @@ module Menu.Model exposing (..)
 
 
 type alias Model =
-    { menu : Menu
+    { menus : List Menu
     , error : String
     }
 
 
 type alias Menu =
-    List String
+    { id : MenuId
+    , name :
+        String
+        -- , items : List Item
+    }
+
+
+type alias Item =
+    { id : ItemId
+    , name : String
+    , description : String
+    , price : Float
+    }
+
+
+type alias MenuId =
+    String
+
+
+type alias ItemId =
+    String
+
+
+type Route
+    = MenusRoute
+    | AMenu MenuId
+    | NotFoundRoute
 
 
 
@@ -19,7 +45,7 @@ type alias Menu =
 
 initialModel : Model
 initialModel =
-    ({ menu = []
+    ({ menus = []
      , error = ""
      }
     )

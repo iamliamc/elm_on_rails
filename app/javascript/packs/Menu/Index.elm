@@ -19,15 +19,15 @@ view model =
             [ text model.error ]
         , h2 [] [ text "Menu" ]
         , ul []
-            (showMenu model.menu)
+            (showMenu model.menus)
         ]
 
 
-menuRow : String -> Html Msg
-menuRow menuItem =
-    li [] [ text (toString menuItem) ]
+menuRow : Menu -> Html Msg
+menuRow menu =
+    li [] [ text (toString menu.name) ]
 
 
-showMenu : Menu -> List (Html Msg)
-showMenu modelMenu =
-    List.map menuRow modelMenu
+showMenu : List Menu -> List (Html Msg)
+showMenu menus =
+    List.map menuRow menus

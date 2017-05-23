@@ -7,5 +7,5 @@ import Http exposing (..)
 
 type Msg
     = None
-    | HandleGetMenuResponse (Result Http.Error (List String))
+    | HandleGetMenuResponse (Result Http.Error (List Menu))
     | FetchMenu
