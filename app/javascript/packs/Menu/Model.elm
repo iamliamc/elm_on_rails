@@ -35,7 +35,8 @@ type alias ItemId =
 
 
 type Route
-    = MenusRoute
+    = HomeRoute
+    | MenusRoute
     | MenuRoute MenuId
     | NotFoundRoute
 

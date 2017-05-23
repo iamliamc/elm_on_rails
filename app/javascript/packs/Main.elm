@@ -1,7 +1,5 @@
 module Main exposing (..)
 
-import Html exposing (..)
-import Json.Decode as Decode exposing (list, string, succeed)
 import Navigation exposing (Location)
 
 

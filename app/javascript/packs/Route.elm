@@ -13,9 +13,20 @@ import Debug
 matchers : Parser (Route -> a) a
 matchers =
     oneOf
-        [ Url.map MenuRoute (s "menu" </> string)
-        , Url.map MenusRoute top
+        [ Url.map HomeRoute top
+        , Url.map MenuRoute (s "menu" </> string)
+        , Url.map MenusRoute (s "menus")
         ]
+
+
+menusPath : String
+menusPath =
+    "#menus"
+
+
+menuPath : MenuId -> String
+menuPath menuId =
+    "#menu/" ++ menuId
 
 
 parseLocation : Location -> Route

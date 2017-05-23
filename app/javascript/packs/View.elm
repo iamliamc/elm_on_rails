@@ -1,7 +1,7 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (style, class)
+import Html.Attributes exposing (style, class, href)
 import Html.Events exposing (onClick, onInput)
 import Menu.Msgs exposing (..)
 import Menu.Model exposing (Model, Menu)
@@ -18,6 +18,9 @@ view model =
 page : Model -> Html Msg
 page model =
     case model.route of
+        Menu.Model.HomeRoute ->
+            homeView
+
         Menu.Model.MenusRoute ->
             Menu.Index.view model
 
@@ -42,6 +45,13 @@ menuShowPage model menuId =
 
             Nothing ->
                 notFoundView
+
+
+homeView : Html msg
+homeView =
+    h1 []
+        [ a [ href "#menus" ] [ text "Welcome to the Elm Menus App! Click To Continue" ]
+        ]
 
 
 notFoundView : Html msg
