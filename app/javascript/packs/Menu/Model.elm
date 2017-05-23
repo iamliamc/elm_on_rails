@@ -12,9 +12,8 @@ type alias Model =
 
 type alias Menu =
     { id : MenuId
-    , name :
-        String
-        -- , items : List Item
+    , name : String
+    , items : List Item
     }
 
 
@@ -22,7 +21,7 @@ type alias Item =
     { id : ItemId
     , name : String
     , description : String
-    , price : Float
+    , price : Int
     }
 
 

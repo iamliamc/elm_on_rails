@@ -3,7 +3,7 @@ module Menu.Show exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, value, href)
 import Menu.Msgs exposing (Msg)
-import Menu.Model exposing (Menu)
+import Menu.Model exposing (Menu, Item)
 import Route exposing (menusPath)
 
 
@@ -23,9 +23,26 @@ nav model =
 
 form : Menu -> Html Msg
 form menu =
-    div [ class "m3" ]
-        [ h1 [] [ text menu.name ]
-        , h2 [] [ text menu.id ]
+    table [ class "table table-striped" ]
+        [ thead []
+            [ tr []
+                [ th [] [ text "Id" ]
+                , th [] [ text "Name" ]
+                , th [] [ text "Description" ]
+                , th [] [ text "Price" ]
+                ]
+            ]
+        , tbody [] (List.map viewItems menu.items)
+        ]
+
+
+viewItems : Item -> Html Msg
+viewItems item =
+    tr []
+        [ td [] [ text item.id ]
+        , td [] [ text item.name ]
+        , td [] [ text item.description ]
+        , td [] [ text (toString item.price) ]
         ]
 
 
