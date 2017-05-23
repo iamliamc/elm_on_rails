@@ -1,87 +1,24 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (style, class)
 import Json.Decode as Decode exposing (list, string, succeed)
-import Html.Events exposing (onClick, onInput)
-import Http
 import Navigation exposing (Location)
-import UrlParser as Url exposing (..)
-import Rails
 
 
--- MODEL
+-- import UrlParser as Url exposing (..)
 
-
-type alias Model =
-    { menu : Menu
-    , error : String
-    }
-
-
-type alias Menu =
-    List String
-
-
-
--- INIT
-
-
-init : ( Model, Cmd Message )
-init =
-    ( { menu = []
-      , error = ""
-      }
-    , Cmd.none
-    )
-
+import Menu.Model exposing (Model, initialModel)
+import Menu.View exposing (..)
+import Menu.Msgs exposing (..)
+import Menu.Commands exposing (getMenu)
 
 
 -- VIEW
 
 
-view : Model -> Html Message
-view model =
-    -- The inline style is being used for example purposes in order to keep this example simple and
-    -- avoid loading additional resources. Use a proper stylesheet when building your own app.
-    div [ class "well" ]
-        [ h1 [ style [ ( "display", "flex" ), ( "justify-content", "center" ) ] ]
-            [ text "Hello Elmmmm!!" ]
-        , button [ onClick (FetchMenu) ] [ text "Get the New Menu" ]
-        , div
-            []
-            [ text model.error ]
-        , h2 [] [ text "Menu" ]
-        , ul []
-            (showMenu model.menu)
-        ]
-
-
-
--- MESSAGE
-
-
-menuRow : String -> Html Message
-menuRow menuItem =
-    li [] [ text (toString menuItem) ]
-
-
-showMenu : Menu -> List (Html Message)
-showMenu modelMenu =
-    List.map menuRow modelMenu
-
-
-type Message
-    = None
-    | HandleGetMenuResponse (Result Http.Error (List String))
-    | FetchMenu
-
-
-getMenu : Cmd Message
-getMenu =
-    Decode.list Decode.string
-        |> Rails.get "//localhost:3000/menu.json"
-        |> Http.send HandleGetMenuResponse
+init : ( Model, Cmd Msg )
+init =
+    ( initialModel, getMenu )
 
 
 
@@ -90,9 +27,9 @@ getMenu =
 -- UPDATE
 
 
-update : Message -> Model -> ( Model, Cmd Message )
-update message model =
-    case message of
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
         None ->
             ( model, Cmd.none )
 
@@ -110,18 +47,19 @@ update message model =
 -- SUBSCRIPTIONS
 
 
-subscriptions : Model -> Sub Message
+subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
 
 
 
+-- VIEW
 -- MAIN
 
 
-main : Program Never Model Message
+main : Program Never Model Msg
 main =
-    Html.program
+    program
         { init = init
         , view = view
         , update = update
