@@ -9,3 +9,4 @@ type Msg
     = None
     | HandleGetMenuResponse (Result Http.Error (List Menu))
     | FetchMenu
+    | OnLocationChange Location

@@ -3,6 +3,7 @@ module Route exposing (..)
 import UrlParser as Url exposing (parseHash, s, (</>), string, oneOf, Parser, map, top)
 import Navigation exposing (Location)
 import Menu.Model exposing (..)
+import Debug
 
 
 -- import Html exposing (Attribute)
@@ -12,16 +13,20 @@ import Menu.Model exposing (..)
 matchers : Parser (Route -> a) a
 matchers =
     oneOf
-        [ Url.map AMenu (s "menu" </> string)
-        , Url.map MenusRoute (s "menu")
+        [ Url.map MenuRoute (s "menu" </> string)
+        , Url.map MenusRoute top
         ]
 
 
 parseLocation : Location -> Route
 parseLocation location =
-    case (parseHash matchers location) of
-        Just route ->
-            route
+    let
+        _ =
+            Debug.log "Location" location
+    in
+        case (parseHash matchers location) of
+            Just route ->
+                route
 
-        Nothing ->
-            NotFoundRoute
+            Nothing ->
+                NotFoundRoute

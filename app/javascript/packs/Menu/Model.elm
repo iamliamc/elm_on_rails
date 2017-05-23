@@ -6,6 +6,7 @@ module Menu.Model exposing (..)
 type alias Model =
     { menus : List Menu
     , error : String
+    , route : Route
     }
 
 
@@ -35,7 +36,7 @@ type alias ItemId =
 
 type Route
     = MenusRoute
-    | AMenu MenuId
+    | MenuRoute MenuId
     | NotFoundRoute
 
 
@@ -43,9 +44,10 @@ type Route
 -- INIT
 
 
-initialModel : Model
-initialModel =
+initialModel : Route -> Model
+initialModel route =
     ({ menus = []
      , error = ""
+     , route = route
      }
     )
